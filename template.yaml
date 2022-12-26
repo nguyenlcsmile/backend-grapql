@@ -1,8 +1,8 @@
 AWSTemplateFormatVersion: "2010-09-09"
-# Parameters:
-#   userPoolId:
-#     Type: String
-#     Description: User Pool ID associated with this project
+Parameters:
+  userPoolId:
+    Type: String
+    Description: User Pool ID associated with this project
 Outputs:
   ChatQLApiId:
     Description: Unique AWS AppSync GraphQL API Identifier
@@ -107,15 +107,15 @@ Resources:
               - !Sub "${userConversationsTable.Arn}/index/conversationId-index"
       Roles:
         - Ref: "awsAppSyncServiceRole"
-  # chatQLApi:
-  #   Type: "AWS::AppSync::GraphQLApi"
-  #   Properties:
-  #     Name: "ChatQL"
-  #     AuthenticationType: "AMAZON_COGNITO_USER_POOLS"
-  #     UserPoolConfig:
-  #       UserPoolId: !Ref userPoolId
-  #       AwsRegion: !Ref "AWS::Region"
-  #       DefaultAction: "ALLOW"
+  chatQLApi:
+    Type: "AWS::AppSync::GraphQLApi"
+    Properties:
+      Name: "ChatQL"
+      # AuthenticationType: "AMAZON_COGNITO_USER_POOLS"
+      # UserPoolConfig:
+      #   UserPoolId: !Ref userPoolId
+      #   AwsRegion: !Ref "AWS::Region"
+      #   DefaultAction: "ALLOW"
   conversationsTableDataSource:
     Type: "AWS::AppSync::DataSource"
     Properties:
