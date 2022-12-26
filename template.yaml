@@ -1,8 +1,8 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Parameters:
-  userPoolId:
-    Type: String
-    Description: User Pool ID associated with this project
+# Parameters:
+#   userPoolId:
+#     Type: String
+#     Description: User Pool ID associated with this project
 Outputs:
   ChatQLApiId:
     Description: Unique AWS AppSync GraphQL API Identifier
