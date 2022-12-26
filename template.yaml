@@ -15,12 +15,10 @@ Resources:
     Type: "AWS::DynamoDB::Table"
     Properties:
       AttributeDefinitions:
-        -
-          AttributeName: "id"
+        - AttributeName: "id"
           AttributeType: "S"
       KeySchema:
-        -
-          AttributeName: "id"
+        - AttributeName: "id"
           KeyType: "HASH"
       ProvisionedThroughput:
         ReadCapacityUnits: "5"
@@ -29,18 +27,14 @@ Resources:
     Type: "AWS::DynamoDB::Table"
     Properties:
       AttributeDefinitions:
-        -
-          AttributeName: "conversationId"
+        - AttributeName: "conversationId"
           AttributeType: "S"
-        -
-          AttributeName: "createdAt"
+        - AttributeName: "createdAt"
           AttributeType: "S"
       KeySchema:
-        -
-          AttributeName: "conversationId"
+        - AttributeName: "conversationId"
           KeyType: "HASH"
-        -
-          AttributeName: "createdAt"
+        - AttributeName: "createdAt"
           KeyType: "RANGE"
       ProvisionedThroughput:
         ReadCapacityUnits: "5"
@@ -49,28 +43,22 @@ Resources:
     Type: "AWS::DynamoDB::Table"
     Properties:
       AttributeDefinitions:
-        -
-          AttributeName: "userId"
+        - AttributeName: "userId"
           AttributeType: "S"
-        -
-          AttributeName: "conversationId"
+        - AttributeName: "conversationId"
           AttributeType: "S"
       KeySchema:
-        -
-          AttributeName: "userId"
+        - AttributeName: "userId"
           KeyType: "HASH"
-        -
-          AttributeName: "conversationId"
+        - AttributeName: "conversationId"
           KeyType: "RANGE"
       ProvisionedThroughput:
         ReadCapacityUnits: "5"
         WriteCapacityUnits: "5"
       GlobalSecondaryIndexes:
-        -
-          IndexName: "conversationId-index"
+        - IndexName: "conversationId-index"
           KeySchema:
-            -
-              AttributeName: "conversationId"
+            - AttributeName: "conversationId"
               KeyType: "HASH"
           Projection:
             ProjectionType: "ALL"
@@ -81,12 +69,10 @@ Resources:
     Type: "AWS::DynamoDB::Table"
     Properties:
       AttributeDefinitions:
-        -
-          AttributeName: "cognitoId"
+        - AttributeName: "cognitoId"
           AttributeType: "S"
       KeySchema:
-        -
-          AttributeName: "cognitoId"
+        - AttributeName: "cognitoId"
           KeyType: "HASH"
       ProvisionedThroughput:
         ReadCapacityUnits: "5"
@@ -97,8 +83,7 @@ Resources:
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
-          -
-            Effect: "Allow"
+          - Effect: "Allow"
             Principal:
               Service:
                 - "appsync.amazonaws.com"
@@ -112,25 +97,23 @@ Resources:
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
-          -
-            Effect: "Allow"
+          - Effect: "Allow"
             Action: "dynamodb:*"
             Resource:
               - !GetAtt conversationsTable.Arn
               - !GetAtt messagesTable.Arn
               - !GetAtt userConversationsTable.Arn
               - !GetAtt usersTable.Arn
-              - !Sub '${userConversationsTable.Arn}/index/conversationId-index'
+              - !Sub "${userConversationsTable.Arn}/index/conversationId-index"
       Roles:
-        -
-          Ref: "awsAppSyncServiceRole"
+        - Ref: "awsAppSyncServiceRole"
   chatQLApi:
     Type: "AWS::AppSync::GraphQLApi"
     Properties:
       Name: "ChatQL"
       AuthenticationType: "AMAZON_COGNITO_USER_POOLS"
       UserPoolConfig:
-        UserPoolId: !Ref userPoolId
+        UserPoolId: "358341557636"
         AwsRegion: !Ref "AWS::Region"
         DefaultAction: "ALLOW"
   conversationsTableDataSource:
